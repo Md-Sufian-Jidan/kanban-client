@@ -1,27 +1,25 @@
-import { useState,  } from 'react';
+import { useState, } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import {  signOut } from 'firebase/auth';
 import { KanbanSquare } from 'lucide-react';
-import auth from '../../Firebase/Firebase.config';
+import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const user = false;
+  const { user, logOut } = useAuth()
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Dashboard', path: '/dashboard' },
-    { name: 'Tasks', path: '/tasks' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Dashboard', path: '/dashboard/overview' },
   ];
 
 
   const handleLogout = async () => {
-    await signOut(auth);
+    await logOut();
     navigate('/');
+    return toast.success('Logout Successful');
   };
 
   const navVariants = {
@@ -35,13 +33,12 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="bg-white shadow-soft px-6 py-4 rounded-b-2xl"
+      className="fixed top-0 left-0 w-full bg-white shadow-soft px-6 py-4 rounded-b-2xl z-50"
       initial="hidden"
       animate="visible"
       variants={navVariants}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo / Title */}
         <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-primary font-offside">
           <KanbanSquare className="w-6 h-6 text-primary" />
           Kanban Board
@@ -92,7 +89,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <motion.div
-          className="md:hidden mt-4 flex flex-col gap-3 text-text font-medium"
+          className="md:hidden mt-4 flex flex-col gap-3 text-text font-medium p-4 rounded-b-2xl shadow"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -119,6 +116,7 @@ const Navbar = () => {
         </motion.div>
       )}
     </motion.nav>
+
   );
 };
 

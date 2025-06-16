@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Menu, X, LogOut, PlusCircle, LayoutDashboard } from 'lucide-react';
+import { Menu, X, LogOut, PlusCircle, LayoutDashboard, BarChartIcon } from 'lucide-react';
 import Swal from 'sweetalert2';
 import useAuth from '../../Hooks/useAuth';
 
@@ -25,6 +25,7 @@ const Dashboard = () => {
   };
 
   const navItems = [
+    { name: 'Overview', to: 'overview', icon: <BarChartIcon size={18} /> },
     { name: 'Create Task', to: 'create-task', icon: <PlusCircle size={18} /> },
     { name: 'My Tasks', to: 'my-tasks', icon: <LayoutDashboard size={18} /> },
   ];
@@ -48,7 +49,7 @@ const Dashboard = () => {
             animate={{ x: 0 }}
             exit={{ x: -300 }}
             transition={{ duration: 0.3 }}
-            className="w-64 bg-white shadow-lg md:static fixed z-50 top-0 left-0 h-[100vh] p-6 rounded-r-2xl font-body"
+            className="w-64 bg-white shadow-lg md:static fixed z-50 top-0 left-0 h-[100vh] p-6 rounded-r-2xl sm:rounded-none font-body"
           >
             <div className="mb-6">
               <Link to="/" className="text-2xl font-heading text-primary block">Kanban Board</Link>
@@ -89,7 +90,7 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="rounded-2xl bg-white shadow"
+          className=" bg-white shadow"
         >
           <Outlet />
         </motion.div>

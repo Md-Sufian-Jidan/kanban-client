@@ -1,12 +1,42 @@
-# React + Vite
+# 📝 Kanban Task Manager (Client)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive, modern Kanban-style task management web app built with the **MERN stack**, featuring drag-and-drop task organization, user authentication via Firebase, and an interactive dashboard with progress analytics.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+👉 [Live Site URL Here](https://your-vercel-app.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+- **React 19** + **React Router v7**
+- **Tailwind CSS** + **Framer Motion** (soft, animated UI)
+- **Firebase Auth** (Email/Password & Google Login)
+- **@dnd-kit** (Drag-and-drop Kanban board)
+- **SweetAlert2** + **React Hot Toast** (for feedback)
+- **Recharts** (Pie chart for task overview)
+- **Axios** for API calls (to the Express backend)
+
+---
+
+## 📦 Key Features
+
+- 🔐 **Authentication** – Register, login, logout via Firebase
+- 🗂️ **Drag & Drop Kanban** – Organize tasks across To Do, In Progress, Completed
+- 📝 **Create / Edit / Delete Tasks** – Full CRUD with modals and feedback
+- 📊 **Dashboard Overview** – Pie chart + stats for your task progress
+- 📱 **Responsive Design** – Optimized for all screen sizes
+- 🧪 **Protected Routes** – Only logged-in users can access dashboard
+
+---
+
+## 🧪 Environment Setup
+
+### 1. Clone this repo
+
+```bash
+git clone https://github.com/Md-Sufian-Jidan/kanban-client.git
+cd kanban-client
