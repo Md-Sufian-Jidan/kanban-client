@@ -3,8 +3,8 @@ import useAuth from './useAuth';
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-    // baseURL: 'https://luxe-matches-server.vercel.app',
-baseURL: 'http://localhost:5000',
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    // baseURL: 'http://localhost:5000',
     withCredentials: true,
 });
 const useAxiosSecure = () => {

@@ -1,4 +1,4 @@
-![KanbanBoard](./assets/kanban-board-client.png)
+![KanbanBoard](./assets/kanban-board-client)
 
 # 📝 Kanban Task Manager (Client)
 
