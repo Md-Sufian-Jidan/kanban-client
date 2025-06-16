@@ -5,13 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { signIn, googleSignIn, } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const { signIn, googleSignIn, loading, setLoading } = useAuth();
 
   const onSubmit = async ({ email, password }) => {
     setLoading(true);

@@ -30,7 +30,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-full flex flex-col md:flex-row bg-background font-body">
+    <div className="min-h-screen flex flex-col md:flex-row bg-background font-body">
 
       {/* Mobile Header */}
       <div className="md:hidden bg-white shadow-md px-4 py-3 flex justify-between items-center">
@@ -84,12 +84,12 @@ const Dashboard = () => {
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 md:p-6">
+      <div className="flex-1">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="rounded-2xl bg-white shadow p-4 md:p-6"
+          className="rounded-2xl bg-white shadow"
         >
           <Outlet />
         </motion.div>

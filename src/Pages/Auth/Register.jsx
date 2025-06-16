@@ -4,13 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
-import { useState } from "react";
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { createUser, } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const { createUser, loading, setLoading } = useAuth();
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -20,7 +18,6 @@ const Register = () => {
       if (res) {
         try {
           const response = await axiosPublic.post(`/api/auth/register`, { email, password });
-          console.log(response);
 
           localStorage.setItem('token', response.data?.token);
           navigate('/login');

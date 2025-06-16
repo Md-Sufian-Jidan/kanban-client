@@ -1,11 +1,8 @@
+// src/Pages/Tasks/DroppableColumn.jsx
 import { useDroppable } from "@dnd-kit/core";
 
 const DroppableColumn = ({ id, children }) => {
-  const { setNodeRef } = useDroppable({
-    id,
-    data: { column: id },
-  });
-
+  const { setNodeRef } = useDroppable({ id });
   return <div ref={setNodeRef}>{children}</div>;
 };
 
