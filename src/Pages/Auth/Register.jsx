@@ -1,21 +1,41 @@
 import { useForm } from "react-hook-form";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import auth from '../../Firebase/Firebase.config'
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { axiosPublic } from "../../Hooks/useAxiosPublic";
+import { useState } from "react";
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const { createUser, } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const { email, password } = data;
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); // redirect on success
+      const res = await createUser(email, password);
+      if (res) {
+        try {
+          const response = await axiosPublic.post(`/api/auth/register`, { email, password });
+          console.log(response);
+
+          localStorage.setItem('token', response.data?.token);
+          navigate('/login');
+          setLoading(false);
+          return toast.success('Register Successful');
+        } catch (err) {
+          console.error(err.response?.data || err.message);
+          setLoading(false);
+          return toast.error(err.response?.data?.message || "Registration failed");
+        }
+      }
     } catch (err) {
       console.error("Registration error:", err.message);
-      alert(err.message); // simple error handling
+      setLoading(false);
+      return toast.error(err.message);
     }
   };
 
@@ -57,12 +77,12 @@ const Register = () => {
             type="submit"
             className="w-full bg-primary text-white py-2 rounded-xl hover:bg-indigo-600 transition"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
         <p className="mt-4 text-sm text-center text-text">
           Already have an account?{" "}
-          <a href="/login" className="text-primary hover:underline">Login</a>
+          <Link to="/login" className="text-primary hover:underline">Login</Link>
         </p>
       </div>
     </motion.div>

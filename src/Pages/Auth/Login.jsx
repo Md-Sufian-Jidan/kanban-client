@@ -1,28 +1,48 @@
 import { useForm } from "react-hook-form";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import auth from "../../Firebase/Firebase.config";
+import useAuth from "../../Hooks/useAuth";
+import { axiosPublic } from "../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const { signIn, googleSignIn, } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async ({ email, password }) => {
+    setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      const res = await signIn(email, password);
+      if (res) {
+        try {
+          const response = await axiosPublic.post(`/api/auth/login`, { email, password });
+
+          // Save token in localStorage or context
+          localStorage.setItem("token", response.data.token);
+
+          navigate("/dashboard");
+          setLoading(false);
+          return toast.success("Login Successful");
+        } catch (err) {
+          console.error("Login failed:", err.response?.data || err.message);
+          setLoading(false);
+          return toast.error(err.response?.data?.message || "Login failed");
+        }
+      }
     } catch (err) {
       console.error(err.message);
-      alert("Invalid credentials");
+      setLoading(false);
+      return toast.error("Invalid credentials");
     }
   };
 
   const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await googleSignIn();
       navigate("/dashboard");
     } catch (err) {
       console.error("Google login failed:", err.message);
@@ -68,7 +88,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-primary text-white py-2 rounded-xl hover:bg-indigo-600 transition"
           >
-            Login
+            {loading ? "Logging..." : "Login"}
           </button>
         </form>
 
@@ -86,7 +106,7 @@ const Login = () => {
 
         <p className="mt-4 text-sm text-center text-text">
           Don't have an account?{" "}
-          <a href="/register" className="text-primary hover:underline">Register</a>
+          <Link to="/register" className="text-primary hover:underline">Register</Link>
         </p>
       </div>
     </motion.div>
