@@ -1,3 +1,5 @@
+![KanbanBoard](./assets/kanban-board-client.png)
+
 # 📝 Kanban Task Manager (Client)
 
 A responsive, modern Kanban-style task management web app built with the **MERN stack**, featuring drag-and-drop task organization, user authentication via Firebase, and an interactive dashboard with progress analytics.
@@ -6,7 +8,7 @@ A responsive, modern Kanban-style task management web app built with the **MERN 
 
 ## 🚀 Live Demo
 
-👉 [Live Site URL Here](https://your-vercel-app.vercel.app)
+👉 [Live Site URL Here](https://kanban-client-mu.vercel.app)
 
 ---
 
@@ -40,3 +42,15 @@ A responsive, modern Kanban-style task management web app built with the **MERN 
 ```bash
 git clone https://github.com/Md-Sufian-Jidan/kanban-client.git
 cd kanban-client
+
+npm install
+
+VITE_API_BASE_URL=https://your-backend-url/api
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_APP_ID=...
+
+npm run dev       # Run in development
+npm run build     # Production build
+
